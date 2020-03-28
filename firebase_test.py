@@ -4,10 +4,10 @@ firebase = firebase.FirebaseApplication('https://winhacks2020-44957.firebaseio.c
 result = firebase.get('/Users', None)
 print(result)
 
+
 data = {
-	"Name" : name,
-	"Phone" : contact,
-	"Location" : loc
+	"Name" : "Billy",
+	"Swag" : "Swajjur"
 }
 
 result = firebase.post('/Users', data);
