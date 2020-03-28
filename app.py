@@ -9,12 +9,6 @@ app = Flask(__name__)
 app.config.from_object(__name__)
 app.config['SECRET_KEY'] = 'SjdnUends821Jsdlkvxh391ksdODnejdDw'
 
-
-
-# def get_time():
-# 	time = strftime("%Y-%m-%dT%H:%M")
-# 	return time
-
 firebase = firebase.FirebaseApplication('https://winhacks2020-44957.firebaseio.com', None)
 def add_new_biz (name, contact, loc, service_type):
 
@@ -28,6 +22,15 @@ def add_new_biz (name, contact, loc, service_type):
 	result = firebase.post('/Users', data);
 	print(result)
 	return result['name']
+
+def add_labor(id, quant):
+
+	data = {
+		"quant" : quant
+	}
+
+	result = firebase.post('/Users/' + id + '/Labor', data)
+	# firebase.put('/Users/' + id + '/Labor', "quant", quant)
 
 def find_biz(id):
 	result = firebase.get('/Users', id)
@@ -59,21 +62,38 @@ def register():
 		flash('Error: All Fields are Required')
 		return render_template('index.html', form=form)
 
-@app.route('/apply/<id>')
+@app.route('/apply/<id>', methods=['GET','POST'])
 def apply(id):
 	biz_data = find_biz(id)
-	if biz_data['service'] == "Materials":
-		return render_template('apply_materials.html', name=biz_data['name'])
-	elif biz_data['service'] == "Equipment":
-		return render_template('apply_equipment.html', name=biz_data['name'])
-	elif biz_data['service'] == "Labor":
-		form = LaborForm(request.form)
-		return render_template('apply_labor.html', form=form, name=biz_data['name'])
-	else:
-		return render_template("error")
 
-	
-	# form = ApplyForm(request.form)
+	if request.method == 'GET' :
+		if biz_data['service'] == "Materials":
+			return render_template('apply_materials.html', name=biz_data['name'])
+		elif biz_data['service'] == "Equipment":
+			return render_template('apply_equipment.html', name=biz_data['name'])
+		elif biz_data['service'] == "Labor":
+			form = LaborForm(request.form)
+			return render_template('apply_labor.html', form=form, id=id, name=biz_data['name'])
+		else:
+			return render_template("error")
+
+	if request.method == 'POST':
+		if biz_data['service'] == "Materials":
+			return render_template('apply_materials.html', name=biz_data['name'])
+		elif biz_data['service'] == "Equipment":
+			return render_template('apply_equipment.html', name=biz_data['name'])
+		elif biz_data['service'] == "Labor":
+			form = LaborForm(request.form)
+			quant=request.form['quant']
+
+			if form.validate():
+				add_labor(id, quant)
+				return quant
+			else:
+				flash('Error: All Fields are Required')
+				return render_template('apply_labor.html', form=form, id=id, name=biz_data['name'])
+		else:
+			return "error"
 
 if __name__ == "__main__":
 	app.run()

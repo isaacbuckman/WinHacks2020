@@ -13,7 +13,7 @@ class RegisterForm(Form):
 	service_type = SelectField("What you have to offer:", choices=service_types,validators=[validators.required()])
 
 class LaborForm(Form):
-	quant = TextField('Number of People:')
+	quant = TextField('Number of People:', validators=[validators.required()])
 
 class MaterialsForm(Form):
 	yes= True
