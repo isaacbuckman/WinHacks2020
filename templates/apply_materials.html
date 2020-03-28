@@ -10,7 +10,7 @@
 
     <div class="container"><br>
       <center>
-        <h2>Labor Form for {{name}}</h2>
+        <h2>Materials Form for {{name}}</h2>
       </center>
     </div>
 
@@ -21,23 +21,14 @@
         {{ form.csrf }}
         <div class="form-group">
 
-          <label for="qty">Number of People:</label>
-          <input type="text" class="form-control" id="qty" name="qty" placeholder="20">
-          <br>
-
-          <label>Number of People:</label>
-          <div class="form-check">
-            <input class="form-check-input" type="checkbox" id="sewing" name="sewing">
-            <label class="form-check-label" for="sewing">
-              Sewing
-            </label>
-          </div>
-          <div class="form-check">
-            <input class="form-check-input" type="checkbox" id="cooking" name="cooking">
-            <label class="form-check-label" for="cooking">
-              Cooking
-            </label>
-          </div>
+          <label for="material">Material Name:</label>
+          <input type="text" class="form-control" id="material" name="material" placeholder="Aluminum">
+            <br>
+          <label for="qty">Quantity:</label>
+          <input type="text" class="form-control" id="qty" name="qty" placeholder="200">
+           <br>
+          <label for="delay">Time Delay:</label>
+          <input type="text" class="form-control" id="delay" name="delay" placeholder="7">
 
             <!-- <br> -->
           <!-- <label for="contact">Phone #:</label>

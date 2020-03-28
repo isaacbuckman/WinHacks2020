@@ -10,31 +10,44 @@
 
     <div class="container"><br>
       <center>
-        <h2>Log In</h2>
+        <h2>Register Your Business</h2>
       </center>
     </div>
 
     <div class="container"><br>
     <div class="row align-items-center justify-content-center">
     <div class="col-md-4">
-      <form  action="{{ url_for('login') }}" method="post" role="form">
+      <form  action="{{ url_for('register') }}" method="post" role="form">
         {{ form.csrf }}
         <div class="form-group">
 
           <label for="name">Name:</label>
           <input type="text" class="form-control" id="name" name="name" placeholder="ABC Metal">
             <br>
-	<!--   <label for="email">Email:</label>
+          <label for="contact">Phone #:</label>
+          <input type="text" class="form-control" id="contact" name="contact" placeholder="111-111-1111">
+	         <br>
+          <label for="loc">Location:</label>
+          <input type="text" class="form-control" id="loc" name="loc" placeholder="07726">
+            <br>
+          <label for="service_type">What you have to offer:</label>
+          <select class="form-control" id="service_type" name="service_type">
+            <option disabled selected>Select your option</option>
+            <option>Materials</option>
+            <option>Equipment</option>
+            <option>Labor</option>
+          </select>
+<!-- 	  <label for="email">Email:</label>
 	  <input type="text" class="form-control" id="email" name="email" placeholder="Your email address.">
-	    <br> -->
-    	  <label for="password">Password:</label>
-    	  <input type="password" class="form-control" id="password" name="password" placeholder="Enter a password.">
+	    <br>
+	  <label for="password">Password:</label>
+	  <input type="password" class="form-control" id="password" name="password" placeholder="Enter a password."> -->
 
-	     </div>
+	</div>
         <br>													   
 
         <center>
-          <button type="submit" class="btn btn-success">Log In</button>
+          <button type="submit" class="btn btn-success">Submit</button>
         </center>
       </form>
 
