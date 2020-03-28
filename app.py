@@ -123,32 +123,31 @@ def dashboard(id):
 		service_type=request.form['service_type']
 
 		if form.validate():
-			return str(service_type)
+			return redirect(url_for('apply', id=id, service=service_type.lower()))
 		else:
 			flash('Error: All Fields are Required')
 			return render_template('dashboard.html', form=form, id=id, biz_data=biz_data)
 
-@app.route('/apply/<id>', methods=['GET','POST'])
-def apply(id):
+@app.route('/dashboard/<id>/new/<any(materials,equipment,labor):service>', methods=['GET','POST'])
+def apply(id, service):
 	biz_data = find_biz_by_id(id)
 
 	if request.method == 'GET' :
-		
-		if biz_data['service'] == "Materials":
+		if service == "materials":
 			form = MaterialsForm(request.form)
 			return render_template('apply_materials.html', form=form, id=id, name=biz_data['name'])
 		
-		if biz_data['service'] == "Equipment":
+		if service == "equipment":
 			form = EquipmentForm(request.form)
 			return render_template('apply_equipment.html', form=form, id=id, name=biz_data['name'])
 		
-		if biz_data['service'] == "Labor":
+		if service == "labor":
 			form = LaborForm(request.form)
 			return render_template('apply_labor.html', form=form, id=id, name=biz_data['name'])
 
 	if request.method == 'POST':
 
-		if biz_data['service'] == "Materials":
+		if service == "materials":
 			form = MaterialsForm(request.form)
 			material=request.form['material']
 			qty=request.form['qty']
@@ -156,24 +155,24 @@ def apply(id):
 
 			if form.validate():
 				add_material(id, material, qty, delay)
-				return "" + material + " " + qty + " " + delay
+				return redirect(url_for('dashboard', id=id))
 			else:
 				flash('Error: All Fields are Required')
 				return render_template('apply_materials.html', form=form, id=id, name=biz_data['name'])
 
-		if biz_data['service'] == "Equipment":
+		if service == "equipment":
 			form = EquipmentForm(request.form)
 			equipment=request.form['equipment']
 			qty=request.form['qty']
 
 			if form.validate():
 				add_equipment(id, equipment, qty)
-				return "" + equipment + " " + qty
+				return redirect(url_for('dashboard', id=id))
 			else:
 				flash('Error: All Fields are Required')
 				return render_template('apply_equipment.html', form=form, id=id, name=biz_data['name'])
 		
-		if biz_data['service'] == "Labor":
+		if service == "labor":
 			form = LaborForm(request.form)
 			qty=request.form['qty']
 			quals = {}
@@ -182,7 +181,7 @@ def apply(id):
 
 			if form.validate():
 				add_labor(id, qty, quals)
-				return str(quals)
+				return redirect(url_for('dashboard', id=id))
 			else:
 				flash('Error: All Fields are Required')
 				return render_template('apply_labor.html', form=form, id=id, name=biz_data['name'])
