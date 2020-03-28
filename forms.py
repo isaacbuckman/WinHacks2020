@@ -14,6 +14,8 @@ class RegisterForm(Form):
 	name = TextField('Name:', validators=[validators.required()])
 	contact = TextField('Phone #:', validators=[validators.required()])
 	loc = TextField("Location:", validators=[validators.required()])
+
+class DashboardForm(Form):
 	service_type = SelectField("What you have to offer:", choices=service_types,validators=[validators.required()])
 
 class MaterialsForm(Form):
