@@ -14,7 +14,7 @@ firebase_admin.initialize_app(cred, {
     'databaseURL': 'https://winhacks-2020-database2.firebaseio.com'
     })
 
-ref = db.reference()
+ref = db.reference().child("Companies")
 
 ##################################################################
 
@@ -39,7 +39,7 @@ def mainThingy(html):
             td = BeautifulSoup(thingy, "lxml")
             results.append(td.text)        
         for i in range (1, len(results)):
-            ref = db.reference()
+            ref = db.reference().child("Companies")
             if i == 1:
                 results[1] = results[1].replace("\n", "").replace("\r", "").replace(".", ",")
                 ref.child(results[1]).set({})
