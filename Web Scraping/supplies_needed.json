@@ -1,0 +1,26 @@
+{
+    "Disposable N95 masks": {
+        "Materials": {
+            "Keywords":
+            {
+                "aluminum":
+                [
+                    "nose clip"
+                ],
+                "plastics":
+                [
+                    "straps",
+                    "nose foam",
+                    "filter",
+                    "shell",
+                    "coverweb"
+                ],
+                "urethane":
+                [
+                    "nose foam"
+                ]
+            }
+        }
+
+    }
+}

@@ -33,7 +33,7 @@ def mainThingy(html):
     headers = headers[1:]
     results = []
 
-    for tr in table_data.find_all("tr")[3:-2]:
+    for tr in table_data.find_all("tr")[2:-2]:
         for td in tr.find_all("td"):
             thingy = str(td).replace("<br>", "\n").replace("<br/>", "\n")
             td = BeautifulSoup(thingy, "lxml")
@@ -51,12 +51,10 @@ def mainThingy(html):
         results = []
     
 driver = webdriver.Chrome()
-driver.get("http://www.buywindsoressex.com/SearchResult.aspx?sectorid=1&scCond=AND&scCT=&scCat=&scMat=&scCer=&scAFT=&scNAICSlvl1=&scNAICSlvl2=&scNAICSlvl3=&scIS=&scMac=&scCap=&scSearchText=")
+driver.get("http://www.buywindsoressex.com/SearchResult.aspx?sectorid=4&scCond=AND&scCT=&scCat=&scMat=&scCer=&scAFT=&scNAICSlvl1=&scNAICSlvl2=&scNAICSlvl3=&scIS=&scMac=&scCap=&scSearchText=")
 mainThingy(driver.page_source)
 time.sleep(1)
-#driver.find_element(By.LINK_TEXT, "2").click()
-#time.sleep(5)
-#mainThingy(driver.page_source)
+
 for i in range (1, 35):
     if i%5 == 0:
         try:
