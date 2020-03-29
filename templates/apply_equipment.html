@@ -17,15 +17,15 @@
     <div class="container"><br>
     <div class="row align-items-center justify-content-center">
     <div class="col-md-4">
-      <form  action="{{ url_for('apply', id=id, service='equipment') }}" method="post" role="form">
+      <form  action="{{ url_for('edit', id=id, app_id=app_id) if app_id else url_for('apply', id=id, service='equipment') }}" method="post" role="form">
         {{ form.csrf }}
         <div class="form-group">
 
           <label for="equipment">Equipment Type:</label>
-          <input type="text" class="form-control" id="equipment" name="equipment" placeholder="Die Casting">
+          <input type="text" class="form-control" value="{{form.data['equipment']}}" id="equipment" name="equipment" placeholder="Die Casting">
             <br>
           <label for="qty">Quantity:</label>
-          <input type="text" class="form-control" id="qty" name="qty" placeholder="10">
+          <input type="text" class="form-control" value="{{form.data['qty']}}" id="qty" name="qty" placeholder="10">
 
             <!-- <br> -->
           <!-- <label for="contact">Phone #:</label>

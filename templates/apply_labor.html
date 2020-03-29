@@ -17,25 +17,25 @@
     <div class="container"><br>
     <div class="row align-items-center justify-content-center">
     <div class="col-md-4">
-      <form  action="{{ url_for('apply', id=id, service='labor') }}" method="post" role="form">
+      <form  action="{{ url_for('edit', id=id, app_id=app_id) if app_id else url_for('apply', id=id, service='labor') }}" method="post" role="form">
         {{ form.csrf }}
         <div class="form-group">
 
           <label for="qty">Number of People:</label>
-          <input type="text" class="form-control" id="qty" name="qty" placeholder="20">
+          <input type="text" class="form-control" value="{{form.data['qty']}}" id="qty" name="qty" placeholder="20">
           <br>
 
           <label>Number of People:</label>
           <div class="form-check">
-            <input class="form-check-input" type="checkbox" id="sewing" name="sewing">
+            <input class="form-check-input" type="checkbox" id="sewing" name="sewing" {{"checked" if form.data['sewing'] else ""}}>
             <label class="form-check-label" for="sewing">
               Sewing
             </label>
           </div>
           <div class="form-check">
-            <input class="form-check-input" type="checkbox" id="cooking" name="cooking">
+            <input class="form-check-input" type="checkbox" id="cooking" name="cooking" {{"checked" if form.data['cooking'] else ""}}>
             <label class="form-check-label" for="cooking">
-              Cooking
+              Cooking 
             </label>
           </div>
 

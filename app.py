@@ -186,5 +186,28 @@ def apply(id, service):
 				flash('Error: All Fields are Required')
 				return render_template('apply_labor.html', form=form, id=id, name=biz_data['name'])
 
+@app.route('/dashbord/<id>/edit/<app_id>', methods=['GET','POST'])
+def edit(id, app_id):
+	biz_data = find_biz_by_id(id)
+
+	if request.method == 'GET' :
+		service = biz_data[app_id]['type'].lower()
+		
+		print(biz_data[app_id], file=sys.stderr)
+		
+		if service == "materials":
+			form = MaterialsForm(request.form, data=biz_data[app_id])
+			return render_template('apply_materials.html', form=form, id=id, app_id=app_id, name=biz_data['name'])
+		if service == "equipment":
+			form = EquipmentForm(request.form, data=biz_data[app_id])
+			return render_template('apply_equipment.html', form=form, id=id, app_id=app_id, name=biz_data['name'])
+		if service == "labor":
+			form = LaborForm(request.form, data=biz_data[app_id])
+			form.sewing.data = biz_data[app_id]['sewing']
+			form.cooking.data = biz_data[app_id]['cooking']
+			return render_template('apply_labor.html', form=form, id=id, app_id=app_id, name=biz_data['name'])
+	if request.method == 'POST' :
+		return "update"
+
 if __name__ == "__main__":
 	app.run()

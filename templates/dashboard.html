@@ -1,8 +1,7 @@
 <html>
   <head>
      <title>Demo Form</title>
-     <link rel="stylesheet" media="screen" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   </head>
@@ -35,7 +34,7 @@
           <button type="submit" class="btn btn-success">Submit</button>
         </center>
       </form>
-      {{biz_data}}
+
       <br>
 
         {% with messages = get_flashed_messages(with_categories=true) %}
@@ -58,8 +57,48 @@
         {% endwith %}
 
     </div>
+    </div>
+    <div class="row align-items-center justify-content-center">
+      <div class="col-md-8">
+        <div class="accordion" id="appsAccordion">
+        {% for app in biz_data if biz_data[app]['type'] %}
+          <div class="card">
+          <div class="card-header" id="heading_{{app}}">
+            <h5 class="mb-0">
+              <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapse_{{app}}" aria-expanded="true" aria-controls="collapse_{{app}}">
+                {{biz_data[app]['type']}}
+              </button>
+            </h5>
+          </div>
+
+          <div id="collapse_{{app}}" class="collapse" aria-labelledby="heading_{{app}}" data-parent="#appsAccordion">
+            <div class="card-body">
+              <!-- {{biz_data[app]}} -->
+              <ul class="list-unstyled">
+                  <li>
+                      <ul>
+                        {% for key in biz_data[app] if key != 'type' %}
+                          <li>{{key}} : {{biz_data[app][key]}}</li>
+                        {% endfor %}
+                      </ul>
+                  </li>
+              </ul>
+              <button type="button" class="btn btn-default" onclick="window.location.href='{{ url_for('edit', id=id, app_id=app) }}';">Update</button>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+
+      <!-- {{biz_data}} -->
+    </div>
+    </div>
+  </div>
     <br>
     </div>
     </div>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
   </body>
 </html>

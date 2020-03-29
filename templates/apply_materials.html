@@ -17,18 +17,18 @@
     <div class="container"><br>
     <div class="row align-items-center justify-content-center">
     <div class="col-md-4">
-      <form  action="{{ url_for('apply', id=id, service='materials') }}" method="post" role="form">
+      <form  action="{{ url_for('edit', id=id, app_id=app_id) if app_id else url_for('apply', id=id, service='materials') }}" method="post" role="form">
         {{ form.csrf }}
         <div class="form-group">
 
           <label for="material">Material Name:</label>
-          <input type="text" class="form-control" id="material" name="material" placeholder="Aluminum">
+          <input type="text" class="form-control" value="{{form.data['material']}}" id="material" name="material" placeholder="Aluminum">
             <br>
           <label for="qty">Quantity:</label>
-          <input type="text" class="form-control" id="qty" name="qty" placeholder="200">
+          <input type="text" class="form-control" value="{{form.data['qty']}}" id="qty" name="qty" placeholder="200">
            <br>
           <label for="delay">Time Delay:</label>
-          <input type="text" class="form-control" id="delay" name="delay" placeholder="7">
+          <input type="text" class="form-control" value="{{form.data['delay']}}" id="delay" name="delay" placeholder="7">
 
             <!-- <br> -->
           <!-- <label for="contact">Phone #:</label>
