@@ -16,6 +16,7 @@ class RegisterForm(Form):
 	phone = TextField("Phone number:", validators=[validators.required()])
 	email = TextField("E-mail:", validators=[validators.required()])
 	loc = TextField("Address::", validators=[validators.required()])
+	visit = BooleanField("A government official can visit the location.")
 
 class DashboardForm(Form):
 	service_type = SelectField("What you have to offer:", choices=service_types)
