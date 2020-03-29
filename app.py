@@ -22,29 +22,35 @@ def add_new_biz (name, contact, loc):
 	}
 
 	result = firebase.post('/Users', data);
-	print(result)
+	# print(result)
 	return result['name']
 
-def add_material(id, material, qty, delay):
+def save_material(id, material, qty, delay, updating, app):
 	data = {
 		"type" : "Materials",
 		"material" : material,
 		"qty" : qty,
 		"delay" : delay
 	}
+	
+	if updating:
+		return firebase.put('/Users/' + id, app, data)
+	else:
+		return firebase.post('/Users/' + id, data)
 
-	result = firebase.post('/Users/' + id, data)
-
-def add_equipment(id, equipment, qty):
+def save_equipment(id, equipment, qty, updating, app):
 	data = {
 		"type" : "Equipment",
 		"equipment" : equipment,
 		"qty" : qty
 	}
 
-	result = firebase.post('/Users/' + id, data)
+	if updating:
+		return firebase.put('/Users/' + id, app, data)
+	else:
+		return firebase.post('/Users/' + id, data)
 
-def add_labor(id, qty, quals):
+def save_labor(id, qty, quals, updating, app):
 
 	data = {
 		"type" : "Labor",
@@ -53,8 +59,10 @@ def add_labor(id, qty, quals):
 		"cooking" : quals['cooking']
 	}
 
-	result = firebase.post('/Users/' + id, data)
-	# firebase.put('/Users/' + id + '/Labor', "qty", qty)
+	if updating:
+		return firebase.put('/Users/' + id, app, data)
+	else:
+		return firebase.post('/Users/' + id, data)
 
 def find_biz_by_id(id):
 	result = firebase.get('/Users', id)
@@ -171,10 +179,7 @@ def apply(id, app):
 			delay=request.form['delay']
 
 			if form.validate():
-				if updating:
-					return "updating"
-				else:
-					add_material(id, material, qty, delay)
+				save_material(id, material, qty, delay, updating, app)
 				return redirect(url_for('dashboard', id=id))
 			else:
 				flash('Error: All Fields are Required')
@@ -186,10 +191,7 @@ def apply(id, app):
 			qty=request.form['qty']
 
 			if form.validate():
-				if updating:
-					return "updating"
-				else:
-					add_equipment(id, equipment, qty)
+				save_equipment(id, equipment, qty, updating, app)
 				return redirect(url_for('dashboard', id=id))
 			else:
 				flash('Error: All Fields are Required')
@@ -203,37 +205,11 @@ def apply(id, app):
 			quals['cooking'] = form.cooking.data
 
 			if form.validate():
-				if updating:
-					return "updating"
-				else:
-					add_labor(id, qty, quals)
+				save_labor(id, qty, quals, updating, app)
 				return redirect(url_for('dashboard', id=id))
 			else:
 				flash('Error: All Fields are Required')
 				return render_template('apply_labor.html', form=form, id=id, name=biz_data['name'])
-
-# @app.route('/dashbord/<id>/edit/<app_id>', methods=['GET','POST'])
-# def edit(id, app_id):
-# 	biz_data = find_biz_by_id(id)
-
-# 	if request.method == 'GET' :
-# 		service = biz_data[app_id]['type'].lower()
-		
-# 		print(biz_data[app_id], file=sys.stderr)
-		
-# 		if service == "materials":
-# 			form = MaterialsForm(request.form, data=biz_data[app_id])
-# 			return render_template('apply_materials.html', form=form, id=id, app_id=app_id, name=biz_data['name'])
-# 		if service == "equipment":
-# 			form = EquipmentForm(request.form, data=biz_data[app_id])
-# 			return render_template('apply_equipment.html', form=form, id=id, app_id=app_id, name=biz_data['name'])
-# 		if service == "labor":
-# 			form = LaborForm(request.form, data=biz_data[app_id])
-# 			form.sewing.data = biz_data[app_id]['sewing']
-# 			form.cooking.data = biz_data[app_id]['cooking']
-# 			return render_template('apply_labor.html', form=form, id=id, app_id=app_id, name=biz_data['name'])
-# 	if request.method == 'POST' :
-# 		return "update"
 
 if __name__ == "__main__":
 	app.run()
