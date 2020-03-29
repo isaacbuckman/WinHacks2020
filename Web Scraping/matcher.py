@@ -20,7 +20,12 @@ for company in data["Companies"]:
                     if material.lower() == supply.lower():
                         print(str(company)+ " can use "+ str(material) + " to help make "+ str (item))
                         ref.child(company).child("Materials").child(supply.lower()).child(item).set(data["Supplies Needed"][item]["Materials"]["Keywords"][supply])
-
-# stuff that the part can be used to make data["Supplies Needed"][item]["Materials"]["Keywords"][supply]
     except:
         continue
+
+for company in data["Companies"]:
+    for category in data["Companies"][company]["Category"]:
+        if category.lower() == "information technology solutions" or category.lower() == "information backup":
+            ref.child(company).child("Services").child(category.lower()).set("IT Support Services")
+        if category.lower() == "security audit" or category.lower() == "security systems and monitoring":
+            ref.child(company).child("Services").child(category.lower()).set("Guard - Security services")

@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "winhacks-2020-database2",
+  "private_key_id": "0df7ba77beb6f57a165447ee5b4e6959afecabb9",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDbpxkf5wCyTPHu\ncvLekMlmpRKOYMhMqPI4qpzFWXjbzCSFNQmMCDp6Q+hfGXLIwujhyncp42F87HBD\n+pBqOCuWhBCrxJzVodj2ncx6z+TeKmu+NDfG11S6y04yOii73k4Gj95HKezJa7Hs\ntQWWBBbGw0id6/ZSG2GfKgkIzrTdinBCguOE1iolGMOJPzhHdwpIREHL23zzG4M0\nIUFrs6REfZCpKnUKBzcqSR9+9Os2z+fnL/ki/XI+Ata1xC+mXLeIt5UQ10zCnc0M\neve7h3K66JA7CHsp1Q0bFWpaAAreVgrsBKMqpjw7qTxu1UkWYjuN0DmdDfJ13hxb\n6bKVVv7fAgMBAAECggEAJIpnURnWUVMgmjjwM1tlzdgfPqVWHP6sEQY8/02zn+kV\nmD1rAasqw0VBxnRO1pwqLsnGSickBCq3QG/SD4GZqrf8p/6U0qtSkzBMIJAuNFFd\nTC6WqtMOquaAczWeqiZA17GeWjtcw2NRnZ29uKekfFtnXLIw75bThi1xhFAS4ZnD\nqcGtkhLamFIqtaNYoG7KhWXrT2xJHDTpvrTIzWt4tFmQU2Je9PXEEFDbv8326t9k\nEr19UC8CSZlm1h6HWbrxIcGRfh4fGDnTtwOQ5rAuz1ndp3qdeOmXDW+MUtJSbDB3\nCatOwqtjAVRPxeGLwP29O2Vsn2s/AVJNMfgA4Uz7HQKBgQD71jjkwCnXmL+kkP6l\newTxGDmc+UNG8FxDbJeXR5aIkIOBdsqu7dZ3ENuuZrTDqO4sJMBXuLiFvr1X7kBO\nDVWe/sfXwIJMDnHDzepOaalpEFdTn6NuhzrJh69SXiCduPeCym/pFoFXPXJlbmHu\nX+Af8T29/iU78UaAVy7AzupaXQKBgQDfSKwdLonQObN8f6E55MAUUptW9r24in1E\n4jwbbm+X8cWoYBYzSc75vi7IFmP+KUtXAAZdVw3oqs/wmjBEQhtB5Uu4S9gycJiQ\n5aLxeHHEgKxhZ7gCI3nNcWhsh52akcVxaQltqSlyGJxqZfZr2mMbnsOUtrW/4p01\nkK7m/YCCawKBgAt+UGRoPMChMQXitCx7O9OBBogafC6No7hUCWsXElCzP7013bQ0\nGJighVYlS9SuLgiHuNuIC6vW869CqV6mjyTNffNjzs6Hzjtgd3QSsG+iFkozu/K8\nazttXNwGfbiVC37FnGvn4glIPaNRcVi+uWzbxrSYF7zvmwcac4DLMLjlAoGAM68c\nt/yHxf01QMJCTaZXl9yvPGgM7mSQLpu3khn0FtXODPWA7gpNsJ2HMqWMK87fM5o7\n3utBuvOfAnCOb55ltNEgv94+gx5xEkk1eHOK0hN+02UwwL35ecagh060+ox3iZLo\nrcuUXma3/iDv83MvsbsERq4sT+hiv31oHuvbDVUCgYEA+zvm8qb3WGlmDnQnYhQD\nz27q9LGTba9K41YwywYN7kDEDMdHNHgEfvYCFrr0WjYSunZLk7G8ZONeYEkU4w8n\nsW1xi6nn3QwX4vOV0gAOiJ0yRdMw+4ytVP7Hbqf99IpTRl03GDdqA2+bnQGKkfxt\nHdjJssgJn6XuT7dOeRV02h0=\n-----END PRIVATE KEY-----\n",
+  "client_email": "firebase-adminsdk-adeq2@winhacks-2020-database2.iam.gserviceaccount.com",
+  "client_id": "101497178050167529424",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-adeq2%40winhacks-2020-database2.iam.gserviceaccount.com"
+}

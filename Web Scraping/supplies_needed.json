@@ -1,26 +1,65 @@
 {
-    "Disposable N95 masks": {
+    "disposable N95 masks": {
         "Materials": {
-            "Keywords":
-            {
-                "aluminum":
-                [
+            "Keywords": {
+                "aluminum": [
                     "nose clip"
                 ],
-                "plastics":
-                [
+                "plastics": [
                     "straps",
                     "nose foam",
                     "filter",
                     "shell",
                     "coverweb"
                 ],
-                "urethane":
-                [
+                "urethane": [
                     "nose foam"
                 ]
             }
         }
+    },
 
+    "gowns and coveralls": {
+        "Materials": {
+            "Keywords": {
+                "aluminum": [
+                    "zipper"
+                ],
+                "brass": [
+                    "zipper"
+                ],
+                "plastics": [
+                    "suit",
+                    "zipper",
+                    "seam tape"
+                ],
+                "rubber": [
+                    "elastic"
+                ]
+            }
+        }
+    },
+
+    "ventilators": {
+        "Materials": {
+            "Keywords": {
+                "plastics": [
+                    "body",
+                    "filter cover",
+                    "filter cover window",
+                    "casing"
+                ]
+            }
+        }
+    },
+
+    "bottles of hand sanitizer": {
+        "Materials": {
+            "Keywords": {
+                "plastics": [
+                    "bottle"
+                ]
+            }
+        }
     }
 }
