@@ -55,14 +55,23 @@ def save_labor(id, qty, quals, updating, app):
 	data = {
 		"type" : "Labor",
 		"qty" : qty,
-		"sewing" : quals['sewing'],
-		"cooking" : quals['cooking']
+		"security": quals["security"],
+		"nursing": quals["nursing"],
+		"food": quals["food"],
+		"laundry": quals["laundry"],
+		"accommodation": quals["accommodation"],
+		"personal": quals["personal"],
+		"IT": quals["IT"]
 	}
 
 	if updating:
 		return firebase.put('/Users/' + id, app, data)
 	else:
 		return firebase.post('/Users/' + id, data)
+
+def delete_app(id, app):
+	firebase.delete('/Users/' + id, app)
+
 
 def find_biz_by_id(id):
 	result = firebase.get('/Users', id)
@@ -130,7 +139,7 @@ def dashboard(id):
 		form = DashboardForm(request.form)
 		service_type=request.form['service_type']
 
-		if form.validate():
+		if form.validate(): #not properly validating because default response is countaing as a reponse
 			return redirect(url_for('apply', id=id, app=("new_"+service_type.lower())))
 		else:
 			flash('Error: All Fields are Required')
@@ -163,8 +172,15 @@ def apply(id, app):
 		if service == "labor":
 			if updating:
 				form = LaborForm(request.form, data=biz_data[app])
-				form.sewing.data = biz_data[app]['sewing']
-				form.cooking.data = biz_data[app]['cooking']
+
+				form.security.data = biz_data[app]['security']
+				form.nursing.data = biz_data[app]['nursing']
+				form.food.data = biz_data[app]['food']
+				form.laundry.data = biz_data[app]['laundry']
+				form.accommodation.data = biz_data[app]['accommodation']
+				form.personal.data = biz_data[app]['personal']
+				form.IT.data = biz_data[app]['IT']
+
 				return render_template('apply_labor.html', form=form, id=id, app_id=app, name=biz_data['name'])
 			else:
 				form = LaborForm(request.form) 
@@ -201,8 +217,14 @@ def apply(id, app):
 			form = LaborForm(request.form)
 			qty=request.form['qty']
 			quals = {}
-			quals['sewing'] = form.sewing.data
-			quals['cooking'] = form.cooking.data
+			quals["security"] = form.security.data 
+			print(form.security.data, file=sys.stderr)
+			quals["nursing"] = form.nursing.data 
+			quals["food"] = form.food.data 
+			quals["laundry"] = form.laundry.data 
+			quals["accommodation"] = form.accommodation.data 
+			quals["personal"] = form.personal.data 
+			quals["IT"] = form.IT.data 
 
 			if form.validate():
 				save_labor(id, qty, quals, updating, app)
@@ -210,6 +232,14 @@ def apply(id, app):
 			else:
 				flash('Error: All Fields are Required')
 				return render_template('apply_labor.html', form=form, id=id, name=biz_data['name'])
+
+@app.route('/dashboard/<id>/<app>/delete') #can i delete this address
+def delete(id, app):
+	delete_app(id, app)
+	return redirect(url_for('dashboard', id=id))
+
+
+
 
 if __name__ == "__main__":
 	app.run()

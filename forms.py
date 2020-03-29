@@ -29,5 +29,10 @@ class EquipmentForm(Form):
 
 class LaborForm(Form):
 	qty = TextField('Number of People:', validators=[validators.required()])
-	sewing = BooleanField("Sewing")
-	cooking = BooleanField("Cooking")
+	security= BooleanField("Guard/security services") 
+	nursing= BooleanField("Nursing services")
+	food= BooleanField("Food services")
+	laundry= BooleanField("Laundry services")
+	accommodation= BooleanField("Accommodation maintenance services")
+	personal= BooleanField("Personal services") 
+	IT = BooleanField("IT Support services")
