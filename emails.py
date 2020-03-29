@@ -4,6 +4,7 @@ from email.mime.multipart import MIMEMultipart
 import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import db
+import time
 
 cred = credentials.Certificate('WinHacksKey.json')
 
@@ -109,4 +110,92 @@ def sendEmail(name):
             sender_email, receiver_email, message.as_string()
         )
 
-sendEmail("Advanced Machining Services")
+def sendServiceEmail(name):
+    global data
+
+    companyName = name
+    services = data["Companies_Emails"][companyName]["Services"]
+    serviceList = []
+
+    for item in data["Companies_Emails"][companyName]["Services"]:
+        serviceList.append(item)
+        
+    services = ""
+
+    if len(serviceList) == 1:
+        services = str(serviceList[0])
+    elif len(serviceList) == 2:
+        services = str(serviceList[0]) + " and " + str(serviceList[1])
+    elif len(serviceList) == 3:
+        services = str(serviceList[0]) + ", " + str(serviceList[1]) + ", and " + str(serviceList[2])
+    elif len(serviceList) == 4:
+        services = str(serviceList[0]) + ", " + str(serviceList[1]) + ", " + str(serviceList[2]) + ", and " + str(serviceList[3])
+
+    print (services)
+
+    sender_email = "winhackstesting@gmail.com"
+    receiver_email = "winhackstesting@gmail.com"
+    password = "HelloJosh1!"
+
+    message = MIMEMultipart("alternative")
+    message["Subject"] = "Covid-19 Aid"
+    message["From"] = sender_email
+    message["To"] = receiver_email
+
+    # Create the plain-text and HTML version of your message
+    html = """\
+    <html>
+    <body>
+        <p>Dear {0}, <br><br>
+        We have noticed that you are capable of using your expertise in <b>{1}</b> 
+        to assist our government. Due to the outbreak of COVID-19, we are 
+        looking for businesses such as yours to help us produce the goods needed for handling 
+        the pandemic. Please fill out the following form to help us determine if you are 
+        willing to help out in this national effort, and to what extent. <br>
+
+        <table width="100%" cellspacing="0" cellpadding="0">
+  <tr>
+      <td>
+          <table cellspacing="10" cellpadding="0">
+              <tr>
+                  <td style="border-radius: 2px;" bgcolor="#ED2939">
+                      <a href="https://www.copernica.com" target="_blank" style="padding: 8px 12px; border: 1px solid #ED2939;border-radius: 2px;font-family: Helvetica, Arial, sans-serif;font-size: 14px; color: #ffffff;text-decoration: none;font-weight:bold;display: inline-block;">
+                          Navigate to Form             
+                      </a>
+                  </td>
+
+                  <td style="border-radius: 2px;" bgcolor="#ED2939">
+                      <a href="https://www.copernica.com" target="_blank" style="padding: 8px 12px; border: 1px solid #ED2939;border-radius: 2px;font-family: Helvetica, Arial, sans-serif;font-size: 14px; color: #ffffff;text-decoration: none;font-weight:bold;display: inline-block;">
+                          I already Submitted!
+                      </a>
+                  </td>
+              </tr>
+          </table>
+      </td>
+  </tr>
+</table> 
+        </p>
+    </body>
+    </html>
+    """.format(companyName, services)
+
+    # Turn these into plain/html MIMEText objects
+    part2 = MIMEText(html, "html")
+
+    # Add HTML/plain-text parts to MIMEMultipart message
+    # The email client will try to render the last part first
+    message.attach(part2)
+
+    # Create secure connection with server and send email
+    context = ssl.create_default_context()
+    with smtplib.SMTP_SSL("smtp.gmail.com", 465, context=context) as server:
+        server.login(sender_email, password)
+        server.sendmail(
+            sender_email, receiver_email, message.as_string()
+        )
+for company in data["Companies_Emails"]:
+    try:
+        sendEmail(company)
+    except:
+        sendServiceEmail(company)
+    time.sleep(1)
