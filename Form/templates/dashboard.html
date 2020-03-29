@@ -70,7 +70,18 @@
           <div class="card-header" id="heading_{{app}}">
             <h5 class="mb-0">
               <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapse_{{app}}" aria-expanded="true" aria-controls="collapse_{{app}}">
-                {{biz_data[app]['type']}}
+                {{biz_data[app]['type']}}:
+                  {%if biz_data[app]['type'].lower() == "materials"%}
+                    {{biz_data[app]['material']}}
+                  {%elif biz_data[app]['type'].lower() == "equipment"%}
+                    {{biz_data[app]['equipment']}}
+                  {%elif biz_data[app]['type'].lower() == "labor"%}
+                    {% for key,value in biz_data[app].items() %}
+                         {% if value == True %} 
+                             {{key}}
+                         {% endif %}
+                    {% endfor %}
+                  {% endif %}
               </button>
             </h5>
           </div>

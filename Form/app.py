@@ -6,7 +6,6 @@ from flask import *
 from firebase import firebase
 from forms import *
 import sys
-from werkzeug.utils import secure_filename
 
 DEBUG = True
 app = Flask(__name__)
