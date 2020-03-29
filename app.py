@@ -6,6 +6,7 @@ from flask import *
 from firebase import firebase
 from forms import *
 import sys
+from werkzeug.utils import secure_filename
 
 DEBUG = True
 app = Flask(__name__)
@@ -24,6 +25,9 @@ def add_new_biz (name, contact, loc):
 	result = firebase.post('/Users', data);
 	# print(result)
 	return result['name']
+
+def save_prefill(id, prefill_data):
+	return firebase.post('/Users/' + id, prefill_data)
 
 def save_material(id, material, qty, delay, updating, app):
 	data = {
@@ -137,6 +141,13 @@ def dashboard(id):
 
 	if request.method == 'POST' :
 		form = DashboardForm(request.form)
+
+		if request.form['prefill']:
+			data = eval(request.form['prefill'])
+			result = save_prefill(id, data)
+			return redirect(url_for('dashboard', id=id))
+
+
 		service_type=request.form['service_type']
 
 		if form.validate(): #not properly validating because default response is countaing as a reponse
@@ -218,7 +229,6 @@ def apply(id, app):
 			qty=request.form['qty']
 			quals = {}
 			quals["security"] = form.security.data 
-			print(form.security.data, file=sys.stderr)
 			quals["nursing"] = form.nursing.data 
 			quals["food"] = form.food.data 
 			quals["laundry"] = form.laundry.data 
@@ -237,8 +247,6 @@ def apply(id, app):
 def delete(id, app):
 	delete_app(id, app)
 	return redirect(url_for('dashboard', id=id))
-
-
 
 
 if __name__ == "__main__":

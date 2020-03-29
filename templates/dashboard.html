@@ -3,7 +3,6 @@
      <title>Demo Form</title>
      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   </head>
   <body>
 
@@ -27,11 +26,16 @@
             <option>Equipment</option>
             <option>Labor</option>
           </select>
+          <br>
+
+          <label for="prefill">Prefill Data:</label>
+              <input type="text" class="form-control" id="prefill" name="prefill" placeholder="example json">
+          <br>
 
 	       </div>											   
 
         <center>
-          <button type="submit" class="btn btn-success">Submit</button>
+          <button type="submit" class="btn btn-success">Add</button>
         </center>
       </form>
 
@@ -89,7 +93,7 @@
         </div>
         {% endfor %}
       </div>
-
+      <br>      
       <!-- {{biz_data}} -->
     </div>
     </div>

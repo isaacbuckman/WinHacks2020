@@ -1,0 +1,69 @@
+{
+  "Users" : {
+    "-M3ZJkCDgOcV_fk6gmxH" : {
+      "location" : "11111",
+      "name" : "Isaac",
+      "phone" : "1111111111"
+    },
+    "-M3ZKNDmSx0laPaCMhdG" : {
+      "-M3ZKclyKI0X0P6EdJKf" : {
+        "delay" : "10",
+        "material" : "aaa",
+        "qty" : "200",
+        "type" : "Materials"
+      },
+      "-M3ZKhfFbLd3pgS9K4MA" : {
+        "equipment" : "equip[",
+        "qty" : "a",
+        "type" : "Equipment"
+      },
+      "-M3ZKkQ3MhobI8bxfTTq" : {
+        "IT" : false,
+        "accommodation" : false,
+        "food" : true,
+        "laundry" : false,
+        "nursing" : false,
+        "personal" : false,
+        "qty" : "241412421412412412421412412412412",
+        "security" : true,
+        "type" : "Labor"
+      },
+      "-M3ZKsmVcOI_9ff9KfO6" : {
+        "delay" : "10",
+        "material" : "444444",
+        "qty" : "200",
+        "type" : "Materials"
+      },
+      "location" : "ok",
+      "name" : "someone",
+      "phone" : "1122"
+    },
+    "-M3ZOHxcp9P15j0vJ2pe" : {
+      "-M3ZOTJzAaSMJKf39WiE" : {
+        "delay" : "111",
+        "material" : "abc",
+        "qty" : "2",
+        "type" : "Materials"
+      },
+      "-M3ZOZAd9FhjzgrDryn5" : {
+        "equipment" : "3d printer",
+        "qty" : "110",
+        "type" : "Equipment"
+      },
+      "-M3ZOcCtoMz-jAhasRiX" : {
+        "IT" : false,
+        "accommodation" : false,
+        "food" : true,
+        "laundry" : false,
+        "nursing" : false,
+        "personal" : false,
+        "qty" : "15",
+        "security" : false,
+        "type" : "Labor"
+      },
+      "location" : "11111",
+      "name" : "Joshs shop",
+      "phone" : "1111111111"
+    }
+  }
+}
