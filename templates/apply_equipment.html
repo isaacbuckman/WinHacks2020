@@ -17,7 +17,7 @@
     <div class="container"><br>
     <div class="row align-items-center justify-content-center">
     <div class="col-md-4">
-      <form  action="{{ url_for('edit', id=id, app_id=app_id) if app_id else url_for('apply', id=id, service='equipment') }}" method="post" role="form">
+      <form  action="{{ url_for('apply', id=id, app=app_id) if app_id else url_for('apply', id=id, app='new_equipment') }}" method="post" role="form">
         {{ form.csrf }}
         <div class="form-group">
 
@@ -26,26 +26,6 @@
             <br>
           <label for="qty">Quantity:</label>
           <input type="text" class="form-control" value="{{form.data['qty']}}" id="qty" name="qty" placeholder="10">
-
-            <!-- <br> -->
-          <!-- <label for="contact">Phone #:</label>
-          <input type="text" class="form-control" id="contact" name="contact" placeholder="111-111-1111">
-	         <br>
-          <label for="loc">Location:</label>
-          <input type="text" class="form-control" id="loc" name="loc" placeholder="07726">
-            <br>
-          <label for="service_type">What you have to offer:</label>
-          <select class="form-control" id="service_type" name="service_type">
-            <option disabled selected>Select your option</option>
-            <option>Materials</option>
-            <option>Equipment</option>
-            <option>Labor</option>
-          </select> -->
-<!-- 	  <label for="email">Email:</label>
-	  <input type="text" class="form-control" id="email" name="email" placeholder="Your email address.">
-	    <br>
-	  <label for="password">Password:</label>
-	  <input type="password" class="form-control" id="password" name="password" placeholder="Enter a password."> -->
 
 	</div>
         <br>													   

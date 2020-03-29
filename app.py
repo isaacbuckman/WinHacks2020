@@ -123,27 +123,44 @@ def dashboard(id):
 		service_type=request.form['service_type']
 
 		if form.validate():
-			return redirect(url_for('apply', id=id, service=service_type.lower()))
+			return redirect(url_for('apply', id=id, app=("new_"+service_type.lower())))
 		else:
 			flash('Error: All Fields are Required')
 			return render_template('dashboard.html', form=form, id=id, biz_data=biz_data)
 
-@app.route('/dashboard/<id>/new/<any(materials,equipment,labor):service>', methods=['GET','POST'])
-def apply(id, service):
+@app.route('/dashboard/<id>/<app>', methods=['GET','POST'])
+def apply(id, app):
 	biz_data = find_biz_by_id(id)
+
+	updating = not (app[0:4] == 'new_')
+	service = biz_data[app]['type'].lower() if updating else app[4:]
 
 	if request.method == 'GET' :
 		if service == "materials":
-			form = MaterialsForm(request.form)
-			return render_template('apply_materials.html', form=form, id=id, name=biz_data['name'])
+			if updating:
+				form = MaterialsForm(request.form, data=biz_data[app])
+				return render_template('apply_materials.html', form=form, id=id, app_id=app, name=biz_data['name'])
+			else:
+				form = MaterialsForm(request.form) 
+				return render_template('apply_materials.html', form=form, id=id, name=biz_data['name'])
 		
 		if service == "equipment":
-			form = EquipmentForm(request.form)
-			return render_template('apply_equipment.html', form=form, id=id, name=biz_data['name'])
+			if updating:
+				form = EquipmentForm(request.form, data=biz_data[app])
+				return render_template('apply_equipment.html', form=form, id=id, app_id=app, name=biz_data['name'])
+			else:
+				form = EquipmentForm(request.form) 
+				return render_template('apply_equipment.html', form=form, id=id, name=biz_data['name'])
 		
 		if service == "labor":
-			form = LaborForm(request.form)
-			return render_template('apply_labor.html', form=form, id=id, name=biz_data['name'])
+			if updating:
+				form = LaborForm(request.form, data=biz_data[app])
+				form.sewing.data = biz_data[app]['sewing']
+				form.cooking.data = biz_data[app]['cooking']
+				return render_template('apply_labor.html', form=form, id=id, app_id=app, name=biz_data['name'])
+			else:
+				form = LaborForm(request.form) 
+				return render_template('apply_labor.html', form=form, id=id, name=biz_data['name'])
 
 	if request.method == 'POST':
 
@@ -154,7 +171,10 @@ def apply(id, service):
 			delay=request.form['delay']
 
 			if form.validate():
-				add_material(id, material, qty, delay)
+				if updating:
+					return "updating"
+				else:
+					add_material(id, material, qty, delay)
 				return redirect(url_for('dashboard', id=id))
 			else:
 				flash('Error: All Fields are Required')
@@ -166,7 +186,10 @@ def apply(id, service):
 			qty=request.form['qty']
 
 			if form.validate():
-				add_equipment(id, equipment, qty)
+				if updating:
+					return "updating"
+				else:
+					add_equipment(id, equipment, qty)
 				return redirect(url_for('dashboard', id=id))
 			else:
 				flash('Error: All Fields are Required')
@@ -180,34 +203,37 @@ def apply(id, service):
 			quals['cooking'] = form.cooking.data
 
 			if form.validate():
-				add_labor(id, qty, quals)
+				if updating:
+					return "updating"
+				else:
+					add_labor(id, qty, quals)
 				return redirect(url_for('dashboard', id=id))
 			else:
 				flash('Error: All Fields are Required')
 				return render_template('apply_labor.html', form=form, id=id, name=biz_data['name'])
 
-@app.route('/dashbord/<id>/edit/<app_id>', methods=['GET','POST'])
-def edit(id, app_id):
-	biz_data = find_biz_by_id(id)
+# @app.route('/dashbord/<id>/edit/<app_id>', methods=['GET','POST'])
+# def edit(id, app_id):
+# 	biz_data = find_biz_by_id(id)
 
-	if request.method == 'GET' :
-		service = biz_data[app_id]['type'].lower()
+# 	if request.method == 'GET' :
+# 		service = biz_data[app_id]['type'].lower()
 		
-		print(biz_data[app_id], file=sys.stderr)
+# 		print(biz_data[app_id], file=sys.stderr)
 		
-		if service == "materials":
-			form = MaterialsForm(request.form, data=biz_data[app_id])
-			return render_template('apply_materials.html', form=form, id=id, app_id=app_id, name=biz_data['name'])
-		if service == "equipment":
-			form = EquipmentForm(request.form, data=biz_data[app_id])
-			return render_template('apply_equipment.html', form=form, id=id, app_id=app_id, name=biz_data['name'])
-		if service == "labor":
-			form = LaborForm(request.form, data=biz_data[app_id])
-			form.sewing.data = biz_data[app_id]['sewing']
-			form.cooking.data = biz_data[app_id]['cooking']
-			return render_template('apply_labor.html', form=form, id=id, app_id=app_id, name=biz_data['name'])
-	if request.method == 'POST' :
-		return "update"
+# 		if service == "materials":
+# 			form = MaterialsForm(request.form, data=biz_data[app_id])
+# 			return render_template('apply_materials.html', form=form, id=id, app_id=app_id, name=biz_data['name'])
+# 		if service == "equipment":
+# 			form = EquipmentForm(request.form, data=biz_data[app_id])
+# 			return render_template('apply_equipment.html', form=form, id=id, app_id=app_id, name=biz_data['name'])
+# 		if service == "labor":
+# 			form = LaborForm(request.form, data=biz_data[app_id])
+# 			form.sewing.data = biz_data[app_id]['sewing']
+# 			form.cooking.data = biz_data[app_id]['cooking']
+# 			return render_template('apply_labor.html', form=form, id=id, app_id=app_id, name=biz_data['name'])
+# 	if request.method == 'POST' :
+# 		return "update"
 
 if __name__ == "__main__":
 	app.run()
