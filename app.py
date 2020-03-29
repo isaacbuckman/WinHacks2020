@@ -14,12 +14,13 @@ app.config.from_object(__name__)
 app.config['SECRET_KEY'] = 'SjdnUends821Jsdlkvxh391ksdODnejdDw'
 
 firebase = firebase.FirebaseApplication('https://winhacks2020-44957.firebaseio.com', None)
-def add_new_biz (name, contact, loc):
-
+def add_new_biz (name, contact_name, phone, email,loc):
 	data = {
 		"name" : name,
-		"phone" : contact,
-		"location" : loc
+		"contact_name" : contact_name,
+		"phone" : phone,
+		"email" : email,
+		"loc" : loc		
 	}
 
 	result = firebase.post('/Users', data);
@@ -118,13 +119,15 @@ def register():
 
 	if request.method == 'POST':
 		form = RegisterForm(request.form)
+		
 		name=request.form['name']
-		contact=request.form['contact']
+		contact_name=request.form['contact_name']
+		phone=request.form['phone']
+		email=request.form['email']		
 		loc=request.form['loc']
 
 		if form.validate():
-			id = add_new_biz(name, contact, loc)
-
+			id = add_new_biz(name, contact_name, phone, email,loc)
 			return redirect(url_for('dashboard', id=id))
 
 		else:

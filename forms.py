@@ -11,9 +11,11 @@ class LoginForm(Form):
 	password = TextField('password:', validators=[validators.required()])
 
 class RegisterForm(Form):
-	name = TextField('Name:', validators=[validators.required()])
-	contact = TextField('Phone #:', validators=[validators.required()])
-	loc = TextField("Location:", validators=[validators.required()])
+	name = TextField('Company name:', validators=[validators.required()])
+	contact_name = TextField('Contact name:', validators=[validators.required()])
+	phone = TextField("Phone number:", validators=[validators.required()])
+	email = TextField("E-mail:", validators=[validators.required()])
+	loc = TextField("Address::", validators=[validators.required()])
 
 class DashboardForm(Form):
 	service_type = SelectField("What you have to offer:", choices=service_types)
